@@ -43,7 +43,7 @@ function setup() {
   // bg = new BG()
   angleMode(DEGREES)
   resetSketch()
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 10; i++) {
     asteroids.push(new Asteroid())
   }
 }
@@ -119,9 +119,9 @@ function draw() {
       }
       asteroids.forEach((a, idxA) => {
         if (l.checkHit(a)) {
-          asteroids.splice(idxA, 1)
+          // asteroids.splice(idxA, 1)
           lasers.splice(idxL, 1)
-          asteroids.push(new Asteroid())
+          a.resetPos()
           score++
 
         }

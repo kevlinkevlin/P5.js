@@ -14,7 +14,9 @@ class Terrain {
     translate(-terrainOffset, 0)
     beginShape()
     var yoff = start
+    // let vertexNumber = 0
     for (var y = 0; y < height; y += 10) {
+
       A = width * 0.4
       B = 0.05
       C = 0
@@ -22,16 +24,25 @@ class Terrain {
 
 
       if (y == 0 || y == height - 1) {
+
         x = 0
       }
+
       if (y == height - 10) {
         boundary[0] = x
       }
       if (y == height - 70) {
         boundary[2] = x
       }
-      if (y % 20 == 0 || y == height - 1)
+      if (y % 20 == 0 || y == height - 1) {
+        // vertexNumber++
+        // if (vertexNumber % 6 == 0)
+        //   stroke(0, 255, 0)}
+        // else if (vertexNumber % 6 == 3)
+        //   stroke(255, 0, 0)
         vertex(x, y)
+      }
+
       // ellipse(x, y, 1)
       // line(x, 0, x, y)
       yoff -= inc
