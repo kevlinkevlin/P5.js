@@ -41,7 +41,7 @@ class Asteroid {
     }
 
     resetPos() {
-        this.pos = createVector(random(0, width), random(-800, -50))
+        this.pos = createVector(random(0, width), random(-1000, -50))
         this.vel = createVector(0, random(2, 5))
         this.size = createVector(random(15, this.MAXSIZE), random(15, this.MAXSIZE))
         this.spacing = random(50, 130)

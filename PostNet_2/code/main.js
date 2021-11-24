@@ -79,7 +79,7 @@ function draw() {
     // ship = new Ship(pose.nose.x, pose.nose.y)
     // ship.show((pose.leftWrist.x + pose.rightWrist.x) / 2, (pose.leftWrist.y + pose.rightWrist.y) / 2)
     leftOrRight = pose.rightEar.x + pose.leftEar.x - 2 * pose.nose.x
-    if (abs(leftOrRight) >= 25) {
+    if (abs(leftOrRight) >= 30) {
 
       if (leftOrRight < 0) {
         ship.pos.x += 5;

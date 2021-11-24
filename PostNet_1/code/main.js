@@ -106,28 +106,28 @@ function drawPixel(row, column) {
   let flip_column = (video.width - 1) - column;
   if (distance <= headW) {
     //version1
-    color_column = column - centerX
-    color_row = row - centerY;
-    percent = 1.0 + ((0.9 - (headW / distance) * 1.5)) * scale;
-    color_column = color_column * percent;
-    color_row = color_row * percent;
-    color_column = color_column + centerX
-    color_row = color_row + centerY;
+    // color_column = column - centerX
+    // color_row = row - centerY;
+    // percent = 1.0 + ((0.9 - (headW / distance) * 1.5)) * scale;
+    // color_column = color_column * percent;
+    // color_row = color_row * percent;
+    // color_column = color_column + centerX
+    // color_row = color_row + centerY;
 
     //console.log("center", centerY, centerX)
     //console.log("dis", distance)
     //console.log(row, column, parseInt(color_row), parseInt(color_column))
 
     //version2
-    // let radiusToCenter = sqrt((centerX - column) * (centerX - column) + (centerY - row) * (centerY - row))
-    // let v2 = createVector(radiusToCenter * cos(radians(millis() / 1000)), radiusToCenter * sin(radians(millis() / 1000)))
-    // color_column = parseInt(v2.x)
-    // color_row = parseInt(v2.y);
-    // percent = 1.0 + ((0.5 - (headW / distance) * 0.5)) * scale;
-    // color_column = color_column * percent;
-    // color_row = color_row * percent;
-    // color_column = color_column + centerX
-    // color_row = color_row + centerY;
+    let radiusToCenter = sqrt((centerX - column) * (centerX - column) + (centerY - row) * (centerY - row))
+    let v2 = createVector(radiusToCenter * cos(radians(millis() / 1000)), radiusToCenter * sin(radians(millis() / 1000)))
+    color_column = parseInt(v2.x)
+    color_row = parseInt(v2.y);
+    percent = 1.0 + ((0.5 - (headW / distance) * 0.5)) * scale;
+    color_column = color_column * percent;
+    color_row = color_row * percent;
+    color_column = color_column + centerX
+    color_row = color_row + centerY;
 
     pixelInfo = new getPixelInfo(parseInt(color_row), parseInt(color_column));
     //console.log(pixelInfo)
