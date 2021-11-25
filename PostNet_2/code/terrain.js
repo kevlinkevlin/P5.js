@@ -25,7 +25,7 @@ class Terrain {
 
       if (y == 0 || y == height - 1) {
 
-        x = 0
+        // x = 0
       }
 
       if (y == height - 10) {
@@ -64,7 +64,7 @@ class Terrain {
       var x = A * sin(B * (y - 200 * yoff)) + C + noise(yoff) * 200
 
       if (y == 0 || y == height - 1) {
-        x = width
+        // x = width
       }
       if (y == height - 10) {
         boundary[1] = x

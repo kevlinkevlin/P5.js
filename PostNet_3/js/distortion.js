@@ -3,7 +3,7 @@ let distortionShader, img, fft, audio, toggleBtn
 
 function preload() {
   audio = loadSound('Sound/music.mp3')
-  distortionShader = loadShader('shaders/base.vert', 'shaders/distortion.frag')
+  distortionShader = loadShader('shaders/base.vert', 'shaders/d1.frag')
   img = loadImage('img/distortion.jpg')
 }
 function setup() {
