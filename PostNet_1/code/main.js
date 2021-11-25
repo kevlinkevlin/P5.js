@@ -1,7 +1,7 @@
 let video, music, filter, poseNet, poses = [];
 let centerX = 0, centerY = 0, headW = 0, stepSize = 0;
 let rotateCount = 0;
-let audio;
+
 function preload() {
   soundFormats('mp3');
   music = loadSound('./Sound/sound.mp3')
@@ -25,12 +25,9 @@ function setup() {
   filter = new p5.LowPass();
   video = createCapture(VIDEO);
   video.size(width, height);
+  // BlackHole.blackHoleifyImage('test', './Image/bird.png'); 
   poseNet = ml5.poseNet(video, modelReady);
-  // audio = loadSound('Sound/sound.mp3')
-  // toggleBtn = document.querySelector('#toggle-btn')
-  // toggleBtn.addEventListener('click', () => {
-  //   this.toggleAudio()
-  // })
+
   // music.play();
   // music.loop();
   // music.disconnect();
@@ -97,56 +94,71 @@ function draw() {
   rotateCount = (rotateCount + 1) % 360 * PI / 180
 }
 
-function toggleAudio() {
-  if (!audio.isPlaying()) {
-    audio.loop()
-  }
-  else {
-    audio.pause()
-  }
-}
+
 
 
 
 
 
 function drawPixel(row, column) {
-  scale = 0.9
+  scale = 0.5
   let distance = dist(column, row, centerX, centerY);
   let flip_column = (video.width - 1) - column;
   if (distance <= headW) {
     //version1
-    // color_column = column - centerX
-    // color_row = row - centerY;
-    // percent = 1.0 + ((0.9 - (headW / distance) * 1.5)) * scale;
-    // color_column = color_column * percent;
-    // color_row = color_row * percent;
-    // color_column = color_column + centerX
-    // color_row = color_row + centerY;
+    R = 0.4 * headW;
+    if (distance <= R) {
+      color_column = column - centerX
+      color_row = row - centerY;
+      xpercent = (R - distance / 2) / R;
+      ypercent = (R - distance / 2) / R;
+      color_column = color_column * (ypercent / (1 - ypercent));
+      color_row = color_row * (xpercent / (1 - xpercent));
+      color_column = color_column + centerX
+      color_row = color_row + centerY;
+      pixelInfo = new getPixelInfo(parseInt(color_row), parseInt(color_column));
+      fill(color(pixelInfo.colorR, pixelInfo.colorG, pixelInfo.colorB));
+    }
+    /*else if(distance <= headW){
+      color_column = column - centerX
+      color_row = row - centerY;
+      xpercent = ((0.5 - (headW / distance)) / 0.5) * 0.3;
+      ypercent = ((0.5 - (headW / distance)) / 0.5) * 0.3;
+      color_column = color_column * ypercent;
+      color_row = color_row * xpercent;
+      color_column = color_column + centerX
+      color_row = color_row + centerY;
+      pixelInfo = new getPixelInfo(parseInt(color_row), parseInt(color_column));
+    }*/
+    else {
+      //TODO: add particles
+      pixelInfo = new getPixelInfo(parseInt(row), parseInt(column));
+      fill(color(pixelInfo.colorR, pixelInfo.colorG, pixelInfo.colorB));
+
+    }
 
     //console.log("center", centerY, centerX)
     //console.log("dis", distance)
     //console.log(row, column, parseInt(color_row), parseInt(color_column))
 
     //version2
-    // let radiusToCenter = sqrt((centerX - column) * (centerX - column) + (centerY - row) * (centerY - row))
-    // let v2 = createVector(radiusToCenter * cos(radians(millis() / 1000)), radiusToCenter * sin(radians(millis() / 1000)))
-    // color_column = parseInt(v2.x)
-    // color_row = parseInt(v2.y);
-    // percent = 1.0 + ((0.5 - (headW / distance) * 0.5)) * scale;
-    // color_column = color_column * percent;
-    // color_row = color_row * percent;
-    // color_column = color_column + centerX
-    // color_row = color_row + centerY;
+    //let radiusToCenter = sqrt((centerX - column) * (centerX - column) + (centerY - row) * (centerY - row))
+    //let v2 = createVector(radiusToCenter * cos(radians(millis() / 1000)), radiusToCenter * sin(radians(millis() / 1000)))
+    //color_column = parseInt(v2.x)
+    //color_row = parseInt(v2.y);
+    //percent = 1.0 + ((0.5 - (headW / distance) * 0.5)) * scale;
+    //color_column = color_column * percent;
+    //color_row = color_row * percent;
+    //color_column = color_column + centerX
+    //color_row = color_row + centerY;
 
-    color_row = row
-    color_column = column
-    pixelInfo = new getPixelInfo(parseInt(color_row), parseInt(color_column));
     //console.log(pixelInfo)
     // stroke(pixelInfo.colorR, pixelInfo.colorG, pixelInfo.colorB)
-    fill(color(pixelInfo.colorR, pixelInfo.colorG, pixelInfo.colorB));
+    //fill(color(pixelInfo.colorR, pixelInfo.colorG, pixelInfo.colorB));
+    let test = map((pixelInfo.colorR + pixelInfo.colorG + pixelInfo.colorB) / 3, 0, 255, 1, 0);
+    rect(column - video.width / 2, row - video.height / 2, stepSize * test);
     push();
-    let v1 = createVector((centerX - column) / random(20000) * (millis() % 1000), (centerY - row) / random(20000) * (millis() % 1000));
+    let v1 = createVector((centerX - column) / random(15000, 20000) * (millis() % ((centerX - column) * (centerY - row))), (centerY - row) / random(15000, 20000) * (millis() % ((centerX - column) * (centerY - row))));
 
 
     // print(v2.x, v2.y)
