@@ -158,7 +158,8 @@ function drawPixel(row, column) {
     let test = map((pixelInfo.colorR + pixelInfo.colorG + pixelInfo.colorB) / 3, 0, 255, 1, 0);
     rect(column - video.width / 2, row - video.height / 2, stepSize * test);
     push();
-    let v1 = createVector((centerX - column) / random(15000, 20000) * (millis() % ((centerX - column) * (centerY - row))), (centerY - row) / random(15000, 20000) * (millis() % ((centerX - column) * (centerY - row))));
+    let distToCenter = dist(centerX, centerY, column, row)
+    let v1 = createVector((centerX - column) / random(15000, 20000) * (millis() % (distToCenter * 10)), (centerY - row) / random(15000, 20000) * (millis() % (distToCenter * 10)));
 
 
     // print(v2.x, v2.y)
