@@ -3,8 +3,8 @@ let centerX = 0, centerY = 0, headW = 0, stepSize = 0;
 let rotateCount = 0;
 
 function preload() {
-  soundFormats('mp3');
-  music = loadSound('./Sound/sound.mp3')
+  // soundFormats('mp3');
+  // music = loadSound('./Sound/sound.mp3')
 }
 
 function getPoses(results) {
@@ -64,7 +64,7 @@ function draw() {
   let filterRes = 5;
   let volume = map(headWidth, 0, width, 0.5, 1);
   centerX = noseX, centerY = noseY, headW = headWidth;
-  stepSize = int(map(noseY, 0, height, 5, 5));
+  stepSize = int(map(noseY, 0, height, 7, 7));
 
   // music.setVolume(volume);
 
@@ -156,10 +156,10 @@ function drawPixel(row, column) {
     // stroke(pixelInfo.colorR, pixelInfo.colorG, pixelInfo.colorB)
     //fill(color(pixelInfo.colorR, pixelInfo.colorG, pixelInfo.colorB));
     let test = map((pixelInfo.colorR + pixelInfo.colorG + pixelInfo.colorB) / 3, 0, 255, 1, 0);
-    rect(column - video.width / 2, row - video.height / 2, stepSize * test);
+    rect(column - video.width / 2, row - video.height / 2, stepSize);
     push();
     let distToCenter = dist(centerX, centerY, column, row)
-    let v1 = createVector((centerX - column) / random(15000, 20000) * (millis() % (distToCenter * 10)), (centerY - row) / random(15000, 20000) * (millis() % (distToCenter * 10)));
+    let v1 = createVector((centerX - column) / random(10000, 20000) * (millis() % (distToCenter * 10)), (centerY - row) / random(15000, 20000) * (millis() % (distToCenter * 10)));
 
 
     // print(v2.x, v2.y)
@@ -167,7 +167,7 @@ function drawPixel(row, column) {
     translate(v1);
     // translate(p5.Vector.fromAngle(millis() / 1000, 40));
     let darkness = map((pixelInfo.colorR + pixelInfo.colorG + pixelInfo.colorB) / 3, 0, 255, 1, 0);
-    rect(column - video.width / 2, row - video.height / 2, stepSize * darkness);
+    rect(column - video.width / 2, row - video.height / 2, stepSize);
     //fill(color(255, 255, 255));
     //rect(column - video.width / 2, row - video.height / 2, 3);
     /*
@@ -177,7 +177,6 @@ function drawPixel(row, column) {
      if (dist < radius)
      {
          highp float percent = 1.0 + ((0.5 - dist) / 0.5) * scale;
-
          textureCoordinateToUse = textureCoordinateToUse * percent;
      }
      textureCoordinateToUse += center;
